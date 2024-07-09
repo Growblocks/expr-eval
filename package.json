@@ -28,7 +28,8 @@
 		"lint": "eslint index.js src test rollup.config.js rollup-min.config.js",
 		"watch": "rollup -c rollup.config.js -w",
 		"build": "rollup -c rollup.config.js && rollup -c rollup-min.config.js && rollup -c rollup-esm.config.js",
-		"prepublish": "npm run build"
+		"prepublish": "npm run build",
+    "postinstall": "npm run build"
 	},
 	"files": ["dist/", "parser.d.ts"],
 	"repository": {
