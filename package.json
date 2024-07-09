@@ -32,7 +32,7 @@
 		"prepublish": "npm run build",
 		"postinstall": "npm run build"
 	},
-	"files": ["dist/", "parser.d.ts", "rollup.config.js", "rollup-min.config.js", "rollup-esm.config.js", "index.js"],
+	"files": ["dist/", "parser.d.ts", "rollup.config.js", "rollup-min.config.js", "rollup-esm.config.js", "index.js", "src/"],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/silentmatt/expr-eval.git"
