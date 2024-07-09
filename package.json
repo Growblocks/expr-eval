@@ -37,7 +37,7 @@
 		"type": "git",
 		"url": "git+https://github.com/silentmatt/expr-eval.git"
 	},
-	"keywords": ["expression", "math", "evaluate", "eval", "function", "parser"],
+	"keywords": ["expression", "math", "evaluate", "eval", "function", "parser", "index.js"],
 	"author": "Matthew Crumley",
 	"license": "MIT",
 	"bugs": {
