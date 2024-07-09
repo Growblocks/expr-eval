@@ -1,8 +1,9 @@
-import simplify from './simplify';
-import substitute from './substitute';
-import evaluate from './evaluate';
-import expressionToString from './expression-to-string';
-import getSymbols from './get-symbols';
+import simplify from "./simplify";
+import substitute from "./substitute";
+import evaluate from "./evaluate";
+import expressionToString from "./expression-to-string";
+import expressionToSQL from "./expression-to-sql";
+import getSymbols from "./get-symbols";
 
 export function Expression(tokens, parser) {
   this.tokens = tokens;
@@ -15,7 +16,16 @@ export function Expression(tokens, parser) {
 
 Expression.prototype.simplify = function (values) {
   values = values || {};
-  return new Expression(simplify(this.tokens, this.unaryOps, this.binaryOps, this.ternaryOps, values), this.parser);
+  return new Expression(
+    simplify(
+      this.tokens,
+      this.unaryOps,
+      this.binaryOps,
+      this.ternaryOps,
+      values
+    ),
+    this.parser
+  );
 };
 
 Expression.prototype.substitute = function (variable, expr) {
@@ -33,6 +43,10 @@ Expression.prototype.evaluate = function (values) {
 
 Expression.prototype.toString = function () {
   return expressionToString(this.tokens, false);
+};
+
+Expression.prototype.toSQL = function () {
+  return expressionToSQL(this.tokens, false);
 };
 
 Expression.prototype.symbols = function (options) {
@@ -53,9 +67,13 @@ Expression.prototype.variables = function (options) {
 };
 
 Expression.prototype.toJSFunction = function (param, variables) {
-  var expr = this;
-  var f = new Function(param, 'with(this.functions) with (this.ternaryOps) with (this.binaryOps) with (this.unaryOps) { return ' + expressionToString(this.simplify(variables).tokens, true) + '; }'); // eslint-disable-line no-new-func
-  return function () {
-    return f.apply(expr, arguments);
-  };
+  const f = new Function(
+    param,
+    `with(this.functions) with (this.ternaryOps) with (this.binaryOps) with (this.unaryOps) { return ${expressionToString(
+      this.simplify(variables).tokens,
+      true
+    )}; }`
+  ); // eslint-disable-line no-new-func
+  // biome-ignore lint/style/noArguments: <explanation>
+  return () => f.apply(this, arguments);
 };
