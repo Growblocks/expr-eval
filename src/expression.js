@@ -67,13 +67,15 @@ Expression.prototype.variables = function (options) {
 };
 
 Expression.prototype.toJSFunction = function (param, variables) {
+  const expr = this;
   const f = new Function(
     param,
     `with(this.functions) with (this.ternaryOps) with (this.binaryOps) with (this.unaryOps) { return ${expressionToString(
       this.simplify(variables).tokens,
       true
     )}; }`
-  ); // eslint-disable-line no-new-func
-  // biome-ignore lint/style/noArguments: <explanation>
-  return () => f.apply(this, arguments);
+  );
+  return function () {
+    return f.apply(expr, arguments);
+  };
 };
