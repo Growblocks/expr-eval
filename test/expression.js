@@ -805,7 +805,7 @@ describe('Expression', function () {
       assert.strictEqual(parser.parse('a == 2 ? b + 1 : c * 2').toJSFunction('a,b,c')('2', 4, 8), 16);
     });
 
-    it('floor(random() * 10)', function () {
+    describe('floor(random() * 10)', function () {
       it('should return different numbers', function () {
         var fn = Parser.parse('floor(random() * 10)').toJSFunction();
         var counts = {};
@@ -816,7 +816,7 @@ describe('Expression', function () {
         for (i = 0; i < 10; i++) {
           assert.ok(counts[i] >= 85 && counts[i] <= 115);
         }
-        assert.deepStrictEqual(Object.keys(counts).sort(), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']);
+        assert.deepStrictEqual(Object.keys(counts).sort(), ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
       });
     });
 
