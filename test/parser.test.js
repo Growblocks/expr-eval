@@ -2,8 +2,8 @@
 
 'use strict';
 
-var assert = require('assert');
-var Parser = require('../dist/bundle').Parser;
+import { describe, it, assert } from 'vitest';
+import {Parser} from'../index';
 
 describe('Parser', function () {
   [

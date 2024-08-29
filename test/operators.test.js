@@ -2,9 +2,10 @@
 
 'use strict';
 
-var assert = require('assert');
-var Parser = require('../dist/bundle').Parser;
-var spy = require('./lib/spy');
+import { describe, it, assert } from 'vitest';
+import {Parser} from'../index';
+
+import spy from'./lib/spy';
 
 function returnTrue() {
   return true;
